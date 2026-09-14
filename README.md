@@ -1,29 +1,30 @@
 # AI 原生软件生产 · AI-Native Software Production
 
 [中文](#中文) · [English](#english)  
-五分钟入口 / Five-minute introduction · v0.3 · 2026-09-14
+五分钟入口 / Five-minute introduction · v0.4 · 2026-09-14
 
 <a id="中文"></a>
 ## 中文
 
 ## AI 编程现在有点像炼金术
 
-AI 编程现在可以在几分钟里完成过去需要很久的编码工作，但长期使用以后，一些体验会反复出现：
+AI 编程已经可以在几分钟里完成过去需要很久的编码工作。但真正长期使用以后，会反复遇到一些很难忽视的体验：
 
-- 解释得很流畅，但解释和实际代码 却好像是两码事；
-- 看起来越来越能干， 但你却总觉得它好像就是靠猜；
-- 它总是测试，总是增加东西， 但却根本不擅长减少内容；
-- 对于你不了解的领域，AI 编程 就像是 抽卡，根本不知道它下一步会干什么？
+- **解释得很流畅，但解释和实际代码好像是两码事。** 它说“已经修好了”，并不等于真的运行过、验证过；
+- **看起来越来越能干，但你总觉得它有一部分是在猜。** 同一个问题换一种说法、换一次上下文，结果可能明显不同；
+- **它很擅长继续生成，却不天然擅长停下来删东西。** 一轮轮“修复”经常变成继续加判断、加兼容、加补丁，系统越来越厚；
+- **一旦进入你自己也不熟悉的领域，AI 编程很像抽卡。** 你知道它大概率能给出某种东西，却很难提前知道下一步会走向哪里；
+- **代码生成越来越快，人的验证速度却没有一起增长。** 最后真正稀缺的，往往变成了验证、知识整理、依赖协调和人的注意力。
 
-于是问题逐渐从：
+所以我们最初的问题是：
 
-> **“怎么让 AI 更像一个靠谱的程序员？”**
+> **怎么让 AI 更像一个靠谱的程序员？**
 
-变成了另一个更不舒服的问题：
+但讨论越往后，一个更不舒服的问题开始出现：
 
-> **“会不会不是 AI 还不够像程序员，而是我们仍然在强迫一种新的生产者，按照为人类程序员设计的软件工程方式工作？”**
+> **会不会不是 AI 还不够像程序员，而是我们仍然在强迫一种新的生产者，按照为人类程序员设计的软件工程方式工作？**
 
-这个仓库就是从这里开始的。完整的思考过程见 [《我们为什么开始》](研究记录-Research-Notes/我们为什么开始-Why-We-Started.zh-CN.md)。
+这个仓库就是从这里开始的。更完整的思考过程见 [《我们为什么开始》](研究记录-Research-Notes/我们为什么开始-Why-We-Started.zh-CN.md)。
 
 ---
 
@@ -31,17 +32,17 @@ AI 编程现在可以在几分钟里完成过去需要很久的编码工作，�
 
 这可能是整个研究里最重要的一个类比。
 
-电力刚普及的时候，很多工厂主只是把蒸汽机换成了电动机，却保留了蒸汽时代的整个空间布局：一个巨大的中央动力源，通过传动轴和皮带轮把动力“分发”到各台机器。
+电力刚普及的时候，很多工厂主只是把蒸汽机换成了电动机，却保留了蒸汽时代的整个空间布局：一个巨大的中央动力源，通过一根根传动轴、皮带轮把动力“分发”到各台机器。
 
-结果效率提升很有限。因为组织生产的**逻辑**没有变，只是动力来源变了。
+效率提升很有限，因为组织生产的**逻辑**根本没变，只是换了动力来源。
 
-真正的飞跃发生在后来：工程师逐渐意识到，电动机可以做得足够小、足够便宜，于是可以给**每一台机器单独配一个电动机**。中央传动轴不再是必须存在的东西，机器可以按照工作流程本身重新排列，工厂的空间、节奏和责任边界都随之改变。
+真正的飞跃发生在后来。工程师逐渐意识到，电动机可以做得足够小、足够便宜，于是可以给**每一台机器单独配一个电动机**。中央传动轴不再是工厂布局的前提，机器可以围绕实际工作流程重新排列，生产空间、节奏、故障边界甚至管理方式都跟着改变。
 
-电力真正改变的，不只是“动力从哪里来”，而是：
+电力真正释放潜力，不只是因为“动力更先进”，而是因为人们终于开始围绕电动机自己的特性重新设计工厂。
 
-> **当新的动力源拥有和旧动力源完全不同的特性时，整个工厂应该怎样重新组织。**
+> **新的动力源，如果拥有和旧动力源完全不同的特性，真正的变化往往不是替换动力，而是重排整个生产系统。**
 
-【推断】今天很多 AI 编程可能还处在类似的阶段：
+【推断】今天很多 AI 编程可能还停留在第一阶段：
 
 ```text
 原来的软件生产流程
@@ -49,140 +50,168 @@ AI 编程现在可以在几分钟里完成过去需要很久的编码工作，�
 把“人写代码”换成“AI 帮忙写代码”
 ```
 
-IDE、代码库、共享模块、API、Git、人工审查、Debug、发布流程基本没变。
+IDE（集成开发环境）、代码库、共享模块、API（应用程序接口）、Git（版本控制）、人工审查、Debug（调试）、发布流程，大体还是原来的布局。
 
 这就像：
 
-> **把蒸汽机换成电动机，却还保留整套中央传动轴。**
+> **把蒸汽机换成了电动机，却还保留着整套中央传动轴。**
 
-真正的问题可能不是“怎样让电动机更像蒸汽机”，而是：
+真正的问题也许不是“怎样让电动机更像蒸汽机”，而是：
 
 > **如果 AI 的生产特性和人类根本不同，软件这座工厂是不是也应该重新布局？**
 
 ---
 
+## 先别急着谈软件：生成式生产到底哪里不一样？
 
-工业生产的核心逻辑是:设计一次,复制无数次
+要回答这个问题，先得弄清楚 AI 这种“生产者”到底和过去有什么不同。
 
-工业时代的生产范式,本质是把"设计"和"制造"彻底切开——画一张图纸、开一套模具,这是一次性、高成本的投入;之后每一件产品都是对这个固定蓝图的忠实复制,质量控制的标准就是"跟蓝图的偏差有多小"。规模化的意义在于:边际成本随复制次数摊薄,而每一件产品之间的差异,是应该被消灭的缺陷,不是特性。
+### 工业生产的核心逻辑：设计一次，复制无数次
 
-AI 生成的逻辑,可能根本不是这个
+工业时代最重要的一次分工，是把“设计”和“制造”彻底分开。
 
-每一次生成都是一次独立的、随机采样的创造行为,不是对某个"母版"的复制。同样的 prompt 跑两次,输出会不一样——这在工业逻辑里叫"公差超标、次品",但在生成式 AI 这里,这恰恰是特性,不是 bug。这里没有一个先验存在、可以拿来比对"是否合格"的蓝图——生成的过程本身就是"设计"这个动作,不是"制造"这个动作。工业时代把设计和制造分离,AI 生成把这两者压缩成了同一个瞬间发生的事情。
+先画图纸、开模具、设计产线——这是一次性、高成本的工作。之后每一件产品都尽量忠实复制同一个蓝图。质量控制也因此非常自然：
 
-这也解释了为什么"质检"这件事在 AI 领域这么别扭——工业质检问的是"这跟蓝图差多少",而 AI 输出的质检问的是"这个东西好不好",而"好不好"往往没有一个先验的、唯一正确的蓝图可以拿来对照(尤其是小说、文案这类创造性内容),这是我们前面聊了这么多"验证机制"始终觉得别扭的一个深层原因——我们在用"跟蓝图比对"的质检思路,去套一个根本不存在蓝图的生产过程。
+> **这件产品和蓝图偏差了多少？**
 
-另一个维度:复杂度和成本几乎脱钩
+在这种逻辑里，规模化意味着不断复制；产品之间的差异通常是应该消灭的公差和缺陷。
 
-工业生产里,东西越复杂,边际成本越高——多一个零件、多一道工序,都实打实地加钱加时间。但 AI 生成一段简单摘要和生成一首精心雕琢的诗,单位成本(token 数)可能差不多——复杂度和"值不值钱"这两件事,在这个生产范式里几乎不再对应,这跟工业时代"复杂 = 贵"的直觉是脱钩的。
+### 生成式 AI 的逻辑可能正好相反：每次生产都带着一次重新设计
 
+同一个提示词运行两次，结果可以不同。它不是从一个固定母版复制出下一件产品，而是在一个可能性空间里重新采样。
 
+这在工业生产里可能叫“公差超标”，但在图像、文本、音乐等生成任务里，差异本身恰恰是价值的一部分。
 
+于是“设计”和“生产”的界线开始模糊：
 
-在回到软件之前，我们先看那些 AI 已经表现得比较自然的领域。这个过程带出了五个方向。它们不是结论，而是帮助我们摆脱“只把 AI 当更快的人”这一前提的思考实验。
+> **生成的那一刻，同时也是一次新的设计。**
+
+这也解释了为什么“质检”在生成式 AI 里经常显得别扭。
+
+工业质检问的是“像不像蓝图”；生成式结果更常面对的是另外两类问题：
+
+- **有硬标准的地方：它到底对不对、能不能通过验证？**
+- **没有唯一答案的地方：这个结果好不好、值不值得继续？**
+
+两者需要的根本不是同一种审核方式。
+
+### 另一个变化：复杂度和边际生产成本之间的关系变弱了
+
+工业生产里，多一个零件、多一道工序，通常都会直接增加材料、时间和制造成本。
+
+AI 生成当然也有成本，长输出、更多推理、更多验证都会花钱；但和物理制造相比，**“做一个更复杂的候选”不再必然按同样比例变贵**。这让过去因为“太浪费”而不敢采用的工作方式，第一次变得值得重新考虑。
+
+从这里，我们开始推演五个可能的变化方向。
+
+---
+
+## 五个方向：如果不再把 AI 当成“更快的人”
+
+这些都不是结论，而是思考实验。它们的作用，是帮助我们暂时放下传统软件工程的默认前提，看看生成式生产本身可能长成什么样。
 
 ### 方向一：从“版本”变成“谱系”
 
-传统工业产品习惯 v1、v2、v3：后一版替代前一版。
+传统产品习惯 v1、v2、v3：后一版替代前一版，历史主要是一条不断向前的线。
 
-但生成式 AI 的每次输出更像一次独立采样。同一个目标可以长出许多不同但都可用的结果。
+但生成式 AI 的每次输出更像一次独立采样。同一个目标可以长出很多不同、甚至都可用的结果。
 
-【推断】更自然的组织方式也许不是只保留“当前正确版本”，而是保留一片**生成谱系**：哪些分支从哪里长出来，哪些被淘汰，哪些值得嫁接，哪些在特定场景更好。
+【推断】更自然的组织方式也许不是只保留一个“当前正确版本”，而是保留一片**生成谱系**：哪些分支从哪里长出来，哪些被淘汰，哪些值得嫁接，哪些只在特定场景里更好。
 
-人的工作因此可能从“把 v1 修改成 v2”，逐渐转向“在大量可能性中选择、组合和继续投入”。
+人的工作也可能从“把 v1 修改成 v2”，逐渐变成“在大量可能性中选择、组合和决定哪一支值得继续投入”。
 
 ### 方向二：从“完工”变成“持续生成”
 
-传统产品有一个明确的完成时刻。但如果生成本身足够便宜，一部分产品可能根本没有固定终版。
+传统产品有一个很清楚的完成时刻：书写完了，电影剪完了，软件版本发布了。
 
-页面可以在点击时生成，故事可以在阅读时继续长出来，界面可以针对当前任务临时出现。
+但如果生成足够便宜，一部分产品可能根本没有固定终版。
 
-【推断】“作品是什么”可能从一个固定物，变成一个**持续响应环境的过程**。
+页面可以在点击时才出现下一层，故事可以在阅读时继续生成，界面可以只为眼前这个任务临时存在。
+
+【推断】“作品”可能从一个固定物，变成一个**持续响应用户和环境的过程**。
 
 ### 方向三：审核从“对不对”变成“值不值得继续”
 
-工业质检通常拿结果和蓝图比较：偏差多少、是否合格。
+有硬约束的任务仍然需要判断对错；但对于没有唯一蓝图的生成任务，审核会多出另一种角色：
 
-生成式结果经常没有唯一蓝图。于是审核的一部分工作可能变成：
+> **这一支值得继续投入吗？应该停在这里，还是继续生成？**
 
-> 这一支值得继续投入吗？应该停在这里，还是继续生成？
+这更像策展人、猎头或者风险投资，而不是传统流水线上的质检员。
 
-这更像策展、猎头或风险投资，而不是传统质检。
+【推断】未来很多“编辑、审核、产品”工作，可能会更多地变成对可能性进行资源配置：不是逐件修到一样，而是决定哪一支值得继续长大。
 
 ### 方向四：低边际成本允许“故意浪费”
 
-过去同时做一百个方案最后只留一个，是极其昂贵的浪费。
+过去同时做一百个方案，最后只留一个，通常意味着极其糟糕的投入产出比。
 
-但如果候选生成足够便宜，**大量试错后筛选**可能反而成为合理流程。
+但如果候选生成足够便宜，**故意制造大量失败，再从中筛选**，可能反而是合理策略。
 
-图像生成里“一次出几张、挑一张”只是最初级的样子。更激进的版本可能是：先制造很多平行可能性，再把资源集中到少数真正值得继续的分支上。
+图像生成里“一次出几张，挑一张”只是最初级的样子。更激进的版本可能是：先生成很多平行世界，再把验证和人的注意力集中到少数真正值得继续的分支上。
 
-### 方向五：人的稀缺能力可能变成“把品味和意图说清楚”
+### 方向五：人的稀缺能力可能变成“把品味和意图具象化”
 
-如果生产本身越来越便宜，那么更稀缺的可能不是“亲手把东西做出来”，而是：
+如果生产本身越来越便宜，真正稀缺的可能不再只是“把东西亲手做出来”，而是：
 
-> **知道自己到底想要什么，并能把模糊的感觉变成足够清晰的约束。**
+> **知道自己到底想要什么，并且能把一种模糊的感觉，转成足够清晰、可以驱动生成和筛选的约束。**
 
-这种能力现在散落在产品经理、艺术总监、编辑、编剧顾问等工作里，但很少被单独当成一门工程能力来讨论。
-
----
-
-## 几个现实案例让这件事突然具体起来
-
-讨论过程中，有三个案例尤其重要：**Flipbook、MiniMax H3 AI 电视台，以及 AICG 内容生产中的“抽卡式”工作流。**
-
-我们并不把它们当成“新软件架构已经成立”的证明。它们更像三个窗口，让一些共同特征变得可见：
-
-1. **消费行为直接进入下一轮生成。** 点击、弹幕、选择不只是结果之后的反馈，而会立刻成为下一次生成的输入。
-2. **不需要完整预先规划，只需要轻量锚点维持连续。** 例如上一帧、世界观、角色设定、当前页面上下文。
-3. **作品从固定成品变成持续过程。** “什么时候算做完”开始变得模糊。
-
-这三个案例还暴露出另一个更底层的共同点：
-
-> **它们都允许把生产拆成很多相对独立的小单元，而且某一个单元失败的代价不高。**
-
-
-离散性:H3 电视台的最小生产单元是"5-15 秒一幕",接口只有"末帧"这一个变量;Flipbook 的最小单元是"一个节点/一页",接口只有"当前上下文";AICG 抽卡的最小单元是"一集/一个镜头",不需要跟前后镜头强耦合。三者的共同点是:生产单元可以独立失败,不会拖垮整条链——某一幕生成得差,直接跳过或重生成就好,不需要回滚到很早之前重新开始。这跟工业流水线正相反,流水线上一道工序错了,后面所有工序全部要停下来。
-容错率高:H3 电视台观众看到一个尴尬的转场、一句口型对不上,顶多一笑而过,不影响继续看下去;Flipbook 生成的某张插图不够准确,你换个点击方向就绕过去了;AICG 抽卡本身就是把"生成质量不稳定"这个事实内嵌进了产品形态里——用户默认接受"抽到烂卡是常态"。
-
-这两个特征背后,其实指向同一个更根本的原因:LLM/生成模型的错误分布是"局部、独立、不可预测"的,不是"系统性、可预知"的
-
-传统软件的 bug 往往是可复现、可定位、一旦修复就一劳永逸的;但生成式模型的"错误"更像是一种概率噪声——同样的输入,这次生成得好,下次生成得差,而且没有办法保证某一类错误被"修好后就不会再犯"。离散化的生产结构,恰恰是应对这种噪声本质的天然解药:把噪声限制在一个个可以独立丢弃、独立重试的小单元里,而不是让噪声在一个紧耦合的长链条里累积、传播、放大。
-
-这其实回应了我们最早聊的"电力类比"——离散化 + 容错,可能就是"电动机时代的工厂布局"应该长的样子,而紧耦合的流水线,才是真正的"蒸汽时代传动轴思维"。流水线思维要求每一步都必须对,因为下一步依赖上一步的精确输出;但生成式 AI 的本质决定了它没法保证"每一步都对",所以任何试图把它塞进紧耦合流程的尝试,天然会处处碰壁——这可能正是为什么"AI 写代码"这类高耦合、低容错场景(一个函数错了可能导致整个系统崩溃)会显得特别别扭,而"AI 生成短视频/插画/弹幕互动"这类低耦合、高容错场景会显得格外顺畅。
-
-如果把这个当作一个可以拿来判断"AI 在哪先成熟"的诊断框架,大概可以推出几条
-
-优先成熟的领域,是那些天然可以拆成独立小单元、且单个单元出错代价低的场景——短视频、插画、单条文案、单个函数级别的代码补全,这些天然离散;而需要跨越大量步骤维持严格一致性的场景(长篇小说的整体架构、大型系统的核心架构设计、法律文书里环环相扣的论证链条),会持续更难,不是因为模型不够聪明,而是因为这些场景的错误容忍结构跟生成式 AI 的噪声分布天生不匹配。
-反过来推,一个领域要想让 AI 真正好用,可能不是等模型变强,而是要主动把这个领域"离散化"——比如我们之前聊的小说结构问题,与其等 AI 学会把握整体节奏,不如把小说创作流程本身重新设计成离散单元(每一场戏是一个可以独立评估、独立重生成的单元),用你说的知识库去做单元之间的"末帧"式硬约束,人负责在单元和单元之间做判断。这不是在等技术进步,而是在主动改造生产流程的耦合结构去适配这个技术的噪声特性——这可能才是真正决定"谁能先把 AI 用好"的关键变量,而不是"谁的模型更大"。
-这也解释了为什么"容错率"和"离散度"经常是绑在一起出现的,而不是两个独立变量——一个领域如果本身要求高精度(法律条款的字面严谨性、金融计算的准确性),那么就算你把它拆得再离散,单元出错的代价依然很高,离散化本身解决不了容错率低这个问题。真正天然适配的,是那些"离散度高 + 单元容错率也高"同时成立的领域,这两个条件缺一个,AI 用起来都会别扭——这可能才是那个更底层、更值得盯住的复合指标。
-
-
-于是我们提出了一个早期诊断框架：
-
-> **离散度越高 + 容错率越高，生成式 AI 越容易自然地发挥优势。**
-
-这不是最终模型。后来的讨论又补上了可验证性、可逆性、错误相关性等维度。但“离散化 + 容错”第一次让我们看见了一个可能非常重要的方向。
+这种能力今天散落在产品经理、艺术总监、编辑、编剧顾问等职业里，但很少被当作一种独立的方法论来训练。
 
 ---
 
-## 也许“离散化 + 容错”才是电动机时代的工厂布局
+## 三个现实案例，让这些推演突然变得具体
 
-传统流水线要求每一步都尽量正确，因为下一步依赖上一步的精确输出：
+讨论过程中，有三个案例尤其重要：**Flipbook、MiniMax H3 AI 电视台，以及 AIGC（人工智能生成内容）生产中的“抽卡式”工作流。**
+
+它们不能证明“新的软件生产方式已经成立”，但它们让几个共同特征突然变得可见：
+
+1. **消费行为直接进入下一轮生产。** 点击、弹幕、选择不只是结果之后的反馈，而会立刻成为下一次生成的输入；
+2. **连续性不一定来自完整预先规划，也可以依赖很轻的锚点。** 例如上一帧、世界观、角色设定、当前页面上下文；
+3. **作品从固定成品变成持续过程。** “什么时候才算做完”开始变得模糊。
+
+更重要的是，我们开始看到两个反复一起出现的条件。
+
+### 1. 离散：一个单元可以失败，而不会把整条链拖死
+
+在这些案例里，最小生产单元都比较小：一幕、一个页面节点、一张图、一个镜头。
+
+某一幕生成得差，可以跳过或者重来；某一页不理想，可以换一个方向继续；一次“抽卡”失败，本来就是流程预期的一部分。
+
+这和传统紧耦合流水线很不一样：如果下一步必须精确依赖上一步的输出，那么前面一个错误就可能一路传播下去。
+
+### 2. 容错：单个单元不完美，整体仍然可以继续
+
+一个转场有点尴尬、一张图不够准确、一次生成没有抽中好结果，并不会必然让整个体验失败。
+
+甚至有些产品直接把“生成质量不稳定”设计进了交互本身：用户从一开始就知道会试很多次，只挑其中满意的结果。
+
+于是我们得到一个很早期、也很粗糙的诊断框架：
+
+> **生产越容易离散化，单元失败的代价越低，生成式 AI 往往越容易自然地发挥优势。**
+
+---
+
+## 为什么“离散 + 容错”可能比模型大小更重要？
+
+这里需要一个重要修正。
+
+生成式模型的错误并不一定“彼此独立”。同一个模型、同一种提示方式，完全可能反复犯相似的系统性错误。
+
+但它和传统确定程序仍然有一个很现实的区别：**输出具有采样波动，某一次修好并不自动意味着下一次生成永远不会再犯；而且很多错误只有真正运行后才暴露。**
+
+因此，如果一个生产流程要求：
 
 ```text
-A → B → C → D → E
+A 必须正确
+  ↓
+B 才能正确
+  ↓
+C 才能正确
+  ↓
+D 才能正确
 ```
 
-B 错了，C 往后可能全部被污染。
+那么一个具有随机性的生产者被放进这样的长链里，错误就很容易积累、传播和放大。
 
-而生成式 AI 的一个现实特征是：它很强，但不能保证“每一步都绝对正确”。
-
-那么一个值得认真考虑的推论就是：
-
-> **如果生产者本身具有随机性，把它塞进长而紧的依赖链，也许天然就会处处碰壁。**
-
-相反，如果可以把工作拆成：
+相反，如果结构允许：
 
 ```text
 单元 A   单元 B   单元 C   单元 D
@@ -190,17 +219,50 @@ B 错了，C 往后可能全部被污染。
 独立尝试  独立失败  独立验证  独立替换
 ```
 
-那么一次失败就不一定要拖垮整条链。
+一次失败就有机会被限制在局部。
 
-【推断】这可能正是为什么 AI 在短视频、插画、互动内容等**低耦合、高容错**场景中显得格外顺，而在大型软件、金融核心逻辑等**高耦合、低容错**场景中显得特别别扭。
+这解释了一个非常直观的现象：
 
-这也让“电力革命”的类比第一次和软件问题接上：
+【推断】AI 在短视频、插画、单条文案、局部生成等**低耦合、高容错**场景中往往显得格外顺；而在大型软件、金融核心逻辑、法律关键条款等**高耦合、低容错**场景中，会显得特别别扭。
 
-> **离散化、局部自治和容错，也许就是“每台机器一台电动机”在 AI 软件里的对应物；而紧耦合的长调用链，可能更像中央传动轴。**
+这也意味着，一个领域要想把 AI 用好，可能不只是“等模型再变强”，还可以主动改变自己的生产结构：
 
-我们还不知道这是否正确。但它终于变成了可以实验的问题。
+> **能不能把原来必须一次性维持全局正确的问题，重新组织成更小、可独立验收、可独立失败的单元？**
 
+这不是说离散化可以解决一切。后来的讨论又补上了至少三个重要维度：
 
+- **可验证性**：我们能不能低成本判断一个结果是否真的合格？
+- **可逆性**：错了以后能不能安全撤销、替换或重来？
+- **错误相关性**：多个候选是不是其实在一起犯同一种错？
+
+所以“离散度 + 容错率”不是最终公式，但它第一次让我们看到了一个可能比“模型有多大”更接近生产组织的问题。
+
+---
+
+## 这时候，电力革命的类比重新接了回来
+
+也许：
+
+> **离散化、局部自治和容错，就是“每台机器一台电动机”在 AI 软件里的对应物；而长而紧的依赖链，更像中央传动轴。**
+
+传统软件的很多结构，本来就是在另一组约束下形成的：
+
+- 人写代码很慢，所以要尽量复用；
+- 人记忆有限，所以用固定抽象压缩复杂度；
+- 修改很贵，所以追求长期稳定的实现；
+- 每一步都由确定程序执行，所以可以建立很长的精确调用链。
+
+这些选择在它们产生的时代非常合理。
+
+但如果主要生产者变成了一个**生成很快、可以并行尝试、却有随机性、上下文有限而且需要外部验证**的 AI，那么原来的最优解未必还是最优解。
+
+这可能正是为什么“AI 写代码”比 AI 生成图片、短视频、互动内容更容易让人感到别扭：软件通常恰好是一个**高耦合、低容错、历史状态很多、局部修改容易产生全局影响**的世界。
+
+于是问题终于从抽象类比落回软件：
+
+> **能不能重新设计软件的生产单位，让大部分 AI 工作发生在小而清楚、可以独立运行、独立验证、独立失败的范围里？**
+
+我们还不知道答案。但这已经是一个可以动手实验的问题了。
 
 ---
 
@@ -208,15 +270,15 @@ B 错了，C 往后可能全部被污染。
 
 不是先发明“下一代软件工程”，也不是先做一个完整的自愈系统。
 
-### 1. 软件一定要靠固定的长期代码和刚性的长调用链才能完成任务吗？
+### 1. 软件一定要靠长期存在的固定代码和刚性的长调用链才能完成任务吗？
 
-有没有可能出现一种临时的软件产物：用户提出意图，系统即时合成一小段程序、界面或工作流，在隔离环境中完成任务，然后结束甚至被丢弃？
+有没有可能出现一种临时的软件产物：用户提出意图，系统即时合成一小段程序、界面或工作流，在隔离环境里完成任务，然后结束、冻结，甚至直接丢弃？
 
 哪怕它只能工作一次，也足以帮助我们检验：
 
 > **“代码必须长期存在并被持续维护”，究竟是软件的本质要求，还是过去生产成本下形成的默认方式？**
 
-### 2. 一个功能单元能不能在失败后被重新生成，而不是必须由人逐行 Debug？
+### 2. 一个功能单元能不能在失败后被重新生成，而不是必须由人逐行 Debug（调试）？
 
 我们先不要求它自主进化，也不要求它自己判断什么时候“生病”。只要求一个最小闭环：
 
@@ -282,13 +344,13 @@ AI 生成实现
 
 ## 当前状态
 
-【已确认】这个仓库已经整理了理论、提案、实验索引和研究演进记录；原始讨论中特别保留了失败、反例和被推翻的判断，因为这些转折本身就是研究结果。
+【已确认】这个仓库已经整理了理论、提案、实验索引和研究演进记录；失败、反例和被推翻的判断会被刻意保留，因为这些转折本身就是研究结果的一部分。
 
 【不确定】我们还没有证明这是一种更好的通用软件生产方式，也没有必要先证明它适用于所有软件。
 
 真正要找的是：
 
-> **是否存在一类真实软件，在相同质量和资源条件下，改变生产单位、验证方式、知识保存和责任分配以后，能持续得到更高有效产出，并显著减少人的全局协调与救场。**
+> **是否存在一类真实软件，在相同质量和资源条件下，改变生产单位、验证方式、知识保存和责任分配以后，能持续得到更高的有效产出，并显著减少人的全局协调与救场。**
 
 ### 从这里继续
 
@@ -307,48 +369,43 @@ AI 生成实现
 <a id="english"></a>
 ## English
 
-## Why can AI programming feel a little like alchemy?
+## AI programming can feel a little like alchemy
 
-“Alchemy” here does not mean the science behind AI is unsound. The models are grounded in modern machine learning, statistics, and optimization.
+AI can now complete in minutes coding work that used to take much longer. But after using it seriously for a while, the same strange tensions keep returning:
 
-The alchemy-like feeling is practical: **the capability has advanced faster than the engineering methods around it.**
+- **Its explanations can be fluent while still feeling disconnected from the actual code.** “Fixed” is not the same as executed and verified;
+- **It looks increasingly capable, yet part of the process still feels like guessing.** Rephrasing the task or changing the context can send it down a noticeably different path;
+- **It is naturally good at adding more output, but not at deciding what should disappear.** Repeated “fixes” often become more conditions, more compatibility layers, and more patches;
+- **In a domain you do not understand yourself, AI programming can feel like pulling from a gacha machine.** You expect something plausible to appear, but you cannot reliably predict what the next move will be;
+- **Generation speed is scaling faster than human verification speed.** The scarce resources increasingly look like validation, knowledge organization, dependency coordination, and human attention.
 
-In real use, the same tensions keep appearing:
+So the first question was:
 
-- code can be produced extremely fast without being reliably correct;
-- fluent explanation does not guarantee that the explanation matches the code;
-- more context does not always mean more reliability;
-- a local edit can travel surprisingly far through shared modules and dependency chains;
-- AI can generate many candidates cheaply, while human review capacity does not scale the same way;
-- as generation gets cheaper, validation, knowledge organization, coordination, and human attention become the scarce resources.
+> **How do we make AI behave more like a reliable programmer?**
 
-So the question gradually changes from:
+But the discussion gradually produced a more uncomfortable question:
 
-> **“How do we make AI behave more like a reliable programmer?”**
+> **What if the problem is not only that AI is not yet enough like a programmer? What if we are forcing a new kind of producer into a software-production system designed around human programmers?**
 
-into:
-
-> **“What if the deeper problem is that we are forcing a new kind of producer into a software-production system designed around humans?”**
-
-That is where this repository begins. See [Why we started](研究记录-Research-Notes/我们为什么开始-Why-We-Started.en.md) for the full story.
+That is where this repository begins. See [Why we started](研究记录-Research-Notes/我们为什么开始-Why-We-Started.en.md) for the fuller story.
 
 ---
 
-## Why did electrification fail to transform factories immediately?
+## Why did factories not become dramatically more productive as soon as electric motors arrived?
 
-This is one of the most important analogies in the project.
+This may be the most important analogy in the project.
 
-When electric power first spread, many factory owners replaced the steam engine with an electric motor but kept the entire steam-era layout: one central power source driving shafts and belts that distributed mechanical power throughout the building.
+When electricity first spread, many factory owners simply replaced the steam engine with an electric motor while keeping the steam-era layout: one large central power source, with shafts and belts distributing mechanical power to every machine.
 
-Productivity gains were limited because the **logic of production had not changed**. Only the source of power had changed.
+The improvement was limited because the **logic of production had not changed**. Only the source of power had changed.
 
-The larger gains came later, when engineers realized that electric motors could become small and cheap enough to place one directly on each machine. Once the central shaft was no longer necessary, machines could be rearranged around the actual flow of work. The spatial layout, rhythm, and responsibility structure of the factory changed with it.
+The larger shift came later, when engineers realized that motors could become small and cheap enough to put **one motor on each machine**. The central shaft no longer had to dictate the factory layout. Machines could be arranged around the actual flow of work, and the spatial layout, operating rhythm, failure boundaries, and even management structure could change with them.
 
-Electricity mattered not only because it supplied a new source of power, but because:
+Electricity released its real potential not merely because it was “better power,” but because factories were eventually redesigned around the properties of electric motors themselves.
 
-> **a power source with different physical properties allowed the entire factory to be reorganized.**
+> **When a new source of production has fundamentally different properties, the deepest change may come not from replacing the old source, but from reorganizing the whole production system around the new one.**
 
-[Hypothesis] Much of AI programming today may still look like:
+[Hypothesis] Much of AI programming today may still be in the first stage:
 
 ```text
 old software-production process
@@ -356,97 +413,170 @@ old software-production process
 replace “human writes code” with “AI helps write code”
 ```
 
-IDEs, repositories, shared libraries, APIs, review, debugging, and release practices remain largely unchanged.
+IDEs, repositories, shared modules, APIs, Git, human review, debugging, and release practices remain largely inherited from the old layout.
 
-That resembles replacing the steam engine with an electric motor while keeping the shaft system.
+That resembles:
 
-The deeper question is therefore:
+> **replacing the steam engine with an electric motor while keeping the entire shaft system.**
 
-> **If AI has fundamentally different production characteristics from humans, should the software factory itself be rearranged?**
+The deeper question may not be “how do we make the motor behave more like a steam engine?” but:
 
----
-
-## What production characteristics are actually different?
-
-Before returning to software, we looked at domains where generative AI already feels comparatively natural. Five directions emerged. They are not conclusions; they are thought experiments that help us stop assuming AI is simply a faster human producer.
-
-### 1. From versions to lineages
-
-Industrial products are organized as v1, v2, v3, with later versions replacing earlier ones.
-
-Generative systems sample many valid possibilities from the same intent. A more natural structure may be a **lineage of variants**: what branched from what, which branches were discarded, which are useful for a specific context, and which deserve further investment or recombination.
-
-### 2. From completion to continuous generation
-
-Traditional products have a clear completion point. If generation is cheap enough, some products may never have a fixed final form.
-
-A page can be generated when clicked, a story can continue when read, and an interface can appear only for the task at hand.
-
-[Hypothesis] A product can shift from a fixed artifact toward a **process that continuously responds to its environment**.
-
-### 3. From “is it correct?” to “is this branch worth continuing?”
-
-Industrial quality control compares an output against a blueprint.
-
-Generative outputs often have no single blueprint. Part of review therefore changes into a different question: should this branch stop, continue, or receive more resources?
-
-That looks more like curation, recruiting, or venture selection than classical inspection.
-
-### 4. Cheap generation enables deliberate waste
-
-Producing one hundred candidates and keeping one is absurdly wasteful when each candidate is expensive.
-
-When candidate generation becomes cheap, **mass experimentation followed by selection** can become rational. Image generation’s “make several, choose one” pattern is only the simplest version of this idea.
-
-### 5. Human scarcity may move toward making taste and intent explicit
-
-If production becomes abundant, a scarcer capability may be:
-
-> **knowing what you actually want and turning a vague preference into constraints that can steer generation.**
-
-That skill exists today across product management, editing, art direction, and creative consulting, but it is rarely treated as a first-class engineering capability.
+> **If AI has production characteristics that are fundamentally different from humans, should the software factory itself be rearranged?**
 
 ---
 
-## A few real examples made the pattern concrete
+## Before returning to software: what is actually different about generative production?
 
-Three examples became especially useful in the discussion: **Flipbook, the MiniMax H3 AI television experiment, and “gacha-style” AIGC production workflows.**
+To answer that, we first need to ask what kind of producer AI actually is.
 
-We do not treat them as proof of a new software architecture. They are windows into a few recurring properties:
+### Industrial production: design once, reproduce many times
 
-1. **Consumption becomes part of the next generation input.** A click, comment, or choice directly shapes what is produced next.
-2. **Continuity can be maintained with lightweight anchors rather than a complete preplanned artifact.** Previous frames, world rules, characters, or the current page can be enough.
-3. **The product becomes a continuing process rather than a fixed final object.**
+A defining move of industrial production was separating design from manufacturing.
 
-Another common property then became visible:
+The blueprint, tooling, and production line were expensive one-time investments. After that, each product was expected to reproduce the same design as faithfully as possible. Quality control therefore had a natural question:
 
-> **production is split into relatively independent units, and the cost of one unit failing is often low.**
+> **How far does this item deviate from the blueprint?**
 
-This led to an early diagnostic frame:
+At scale, variation was usually something to eliminate.
 
-> **The more discrete the production units, and the more failure the domain can tolerate, the more naturally generative AI tends to fit.**
+### Generative AI may work in the opposite direction: every act of production includes another act of design
 
-This was never meant to be the final model. Later work adds verifiability, reversibility, and failure correlation. But discreteness and tolerance were the first variables that connected the successful examples back to software.
+Run the same prompt twice and the result may differ. The system is not simply copying a fixed master; it is sampling again from a space of possibilities.
+
+In industrial manufacturing, that might look like unacceptable variance. In images, writing, music, and other generative tasks, variation is often part of the value.
+
+The boundary between “design” and “production” therefore starts to blur:
+
+> **the act of generating is also another act of designing.**
+
+That helps explain why “quality control” feels awkward in generative systems.
+
+Industrial inspection asks whether the product matches the blueprint. Generative work often has to answer two very different questions:
+
+- **Where hard requirements exist: is this actually correct and verifiable?**
+- **Where no single answer exists: is this result good, useful, or worth continuing?**
+
+Those are not the same kind of review.
+
+### Another shift: the relationship between complexity and marginal production cost becomes weaker
+
+In physical manufacturing, an extra part or extra process usually adds direct material and production cost.
+
+AI generation still costs money: longer outputs, more reasoning, more trials, and more validation all consume resources. But compared with physical production, **a more complex candidate does not necessarily become expensive in the same proportion**.
+
+That makes workflows once dismissed as “too wasteful” worth reconsidering.
+
+From here, five possible directions emerged.
 
 ---
 
-## Maybe discreteness and tolerance are the AI equivalent of “one motor per machine”
+## Five directions if we stop treating AI as merely a faster human
 
-A traditional pipeline assumes each stage is dependable because the next stage consumes its precise output:
+These are not conclusions. They are thought experiments intended to loosen assumptions inherited from traditional production.
+
+### Direction 1: from versions to lineages
+
+Traditional products are organized as v1, v2, v3: a later version replaces an earlier one, and history is mostly a line.
+
+Generative AI behaves more like repeated sampling. The same intent can produce many different outcomes, several of which may be useful.
+
+[Hypothesis] A more natural structure may be a **generation lineage**: which branch came from which, which branches were discarded, which deserve recombination, and which are better only in a particular context.
+
+Human work may shift from “turn v1 into v2” toward choosing, combining, and deciding which branches deserve more resources.
+
+### Direction 2: from completion to continuous generation
+
+Traditional products have a clear completion point: the book is finished, the film is cut, the software release ships.
+
+If generation becomes cheap enough, some products may never have a fixed final form.
+
+A page may appear only when clicked, a story may continue while it is being read, and an interface may exist only for the task at hand.
+
+[Hypothesis] A “product” may shift from a fixed object toward a **process that continuously responds to users and its environment**.
+
+### Direction 3: from “is it correct?” to “is this branch worth continuing?”
+
+Tasks with hard constraints still require correctness checks. But when there is no single blueprint, review acquires another role:
+
+> **Is this branch worth more investment? Should it stop here, or continue generating?**
+
+That looks more like curation, recruiting, or venture selection than classical factory inspection.
+
+[Hypothesis] Editing, review, and product work may increasingly become resource allocation across possibilities: not making every branch identical, but deciding which branches deserve to grow.
+
+### Direction 4: cheap generation enables deliberate waste
+
+Producing one hundred candidates and keeping one used to be an obviously bad production strategy.
+
+If candidates become cheap enough, however, **deliberately producing many failures and selecting afterward** can become rational.
+
+Image generation’s “make several, choose one” pattern is only the simplest form. A more radical workflow would generate many parallel worlds first, then concentrate validation and human attention on the few branches worth continuing.
+
+### Direction 5: human scarcity may move toward making taste and intent explicit
+
+If production itself becomes abundant, a scarce skill may no longer be only “making the artifact by hand,” but:
+
+> **knowing what you actually want and turning a vague feeling into constraints that can steer generation and selection.**
+
+That capability already exists across product management, art direction, editing, and creative consulting, but it is rarely trained as a distinct discipline.
+
+---
+
+## Three real-world examples made the pattern concrete
+
+Three examples became especially useful in the discussion: **Flipbook, the MiniMax H3 AI television experiment, and gacha-style AIGC production workflows.**
+
+They do not prove that a new software-production model already exists. They are useful because they expose several recurring properties:
+
+1. **Consumption directly enters the next production cycle.** Clicks, comments, and choices become inputs to the next generation rather than merely feedback after the fact;
+2. **Continuity can rely on lightweight anchors instead of a fully preplanned artifact.** A previous frame, world rules, character definitions, or the current page may be enough;
+3. **The product becomes a continuing process instead of a fixed final artifact.** The boundary of “finished” becomes less clear.
+
+More importantly, two conditions kept appearing together.
+
+### 1. Discreteness: one unit can fail without killing the whole chain
+
+The production units in these examples are relatively small: a scene, a page node, an image, a shot.
+
+A weak scene can be skipped or regenerated. A poor page can be abandoned for another branch. A bad “draw” is already an expected part of a gacha-style workflow.
+
+That is very different from a tightly coupled pipeline where the next stage depends precisely on the previous stage’s output.
+
+### 2. Tolerance: one imperfect unit does not necessarily ruin the whole experience
+
+An awkward transition, an inaccurate image, or one bad generation does not automatically destroy the overall product.
+
+Some experiences even make unstable generation part of the product design: users expect multiple attempts and only keep the results they like.
+
+This produced an early, deliberately rough diagnostic frame:
+
+> **The easier production is to discretize, and the lower the cost of one unit failing, the more naturally generative AI tends to fit.**
+
+---
+
+## Why “discreteness + tolerance” may matter as much as model size
+
+One correction is important here.
+
+Generative-model errors are not necessarily independent. The same model, prompted in similar ways, can repeatedly make correlated or systematic mistakes.
+
+But there is still a practical difference from deterministic program execution: **outputs vary across samples, one successful repair does not guarantee that the next generation can never repeat the mistake, and many failures only become visible when the result is actually executed or observed.**
+
+So if the production structure assumes:
 
 ```text
-A → B → C → D → E
+A must be correct
+  ↓
+then B can be correct
+  ↓
+then C can be correct
+  ↓
+then D can be correct
 ```
 
-If B is wrong, everything downstream can be contaminated.
+putting a stochastic producer into that long chain creates many opportunities for errors to accumulate, propagate, and amplify.
 
-Generative AI is powerful, but it cannot guarantee that every intermediate result is always correct.
-
-That suggests a serious possibility:
-
-> **A stochastic producer may be a poor fit for long, tightly coupled chains by construction.**
-
-A different layout would make work more local:
+A more local structure would instead allow:
 
 ```text
 unit A   unit B   unit C   unit D
@@ -455,29 +585,66 @@ try       fail      verify    replace
 locally   locally   locally   locally
 ```
 
-[Hypothesis] This may help explain why generative AI often feels unusually natural in low-coupling, high-tolerance domains such as short-form media and illustration, while feeling awkward in tightly coupled, low-tolerance systems such as large software systems or financial core logic.
+This suggests a very intuitive pattern:
 
-This is where the factory analogy finally connects back to software:
+[Hypothesis] AI often feels unusually natural in **low-coupling, high-tolerance** domains such as short-form media, illustration, and local generation, while feeling much more awkward in **high-coupling, low-tolerance** domains such as large software systems, financial core logic, or legally critical text.
 
-> **discreteness, local autonomy, and tolerance may be the software equivalent of one electric motor per machine; long dependency chains may be closer to the central shaft.**
+That means improving AI use may not be only about waiting for a stronger model. We can also ask whether the production structure itself can change:
 
-We do not yet know whether that analogy survives real experiments. But it gives us something testable.
+> **Can a problem that currently requires global correctness be reorganized into smaller units that can be independently accepted and independently fail?**
+
+Discreteness is not enough on its own. Later discussion added at least three more dimensions:
+
+- **Verifiability:** can we cheaply determine whether a result is actually acceptable?
+- **Reversibility:** can a bad result be safely undone, replaced, or retried?
+- **Failure correlation:** are multiple candidates secretly failing in the same way?
+
+So “discreteness + tolerance” is not the final formula. It was simply the first frame that moved the conversation from model capability toward production organization.
+
+---
+
+## At this point, the electrification analogy came back into focus
+
+Perhaps:
+
+> **discreteness, local autonomy, and tolerance are the AI-software equivalent of one electric motor per machine, while long tightly coupled dependency chains are closer to the central shaft.**
+
+Many traditional software structures were sensible responses to a different set of constraints:
+
+- human beings write code slowly, so reuse is valuable;
+- human memory is limited, so stable abstractions compress complexity;
+- modification is expensive, so implementations are designed to live for a long time;
+- deterministic programs execute every step predictably, so very long precise call chains are viable.
+
+Those choices were rational in the environment that produced them.
+
+But if the primary producer becomes an AI that is **fast at generation, cheap to parallelize, stochastic, context-limited, and dependent on external verification**, the old optimum may no longer be the new optimum.
+
+That may help explain why AI programming often feels more awkward than AI image generation, short-form media, or interactive content: software is typically a **high-coupling, low-tolerance world full of historical state where local edits can have global consequences**.
+
+The analogy finally turns into a concrete software question:
+
+> **Can we redesign software production units so that most AI work happens inside small, clear scopes that can run, be verified, fail, and be replaced independently?**
+
+We do not yet know. But that is now an experimental question rather than only a metaphor.
 
 ---
 
 ## So we began with only two small questions
 
-We did not start by trying to invent the next software paradigm or a complete self-healing system.
+We did not start by trying to invent “the next software-engineering paradigm” or a complete self-healing system.
 
-### 1. Does useful software always require long-lived code and rigid call chains?
+### 1. Does useful software always require long-lived fixed code and rigid call chains?
 
-Could a user express an intent, have a small program, interface, or workflow synthesized for the moment, run it in isolation, get the result, and then discard it?
+Could a user express an intent, have a small program, interface, or workflow synthesized for the moment, run it in isolation, get the result, and then let it end, freeze, or disappear?
 
-Even a one-use artifact would test whether “code must be a long-lived maintained asset” is a fundamental requirement or simply a historical default.
+Even a one-use artifact would test whether:
 
-### 2. Can a functional unit be regenerated after failure instead of being manually debugged line by line?
+> **“code must be a long-lived maintained asset” is a fundamental property of software, or a historical default created by past production costs.**
 
-No autonomous evolution is required. We only need a minimal loop:
+### 2. Can a functional unit be regenerated after failure instead of being debugged line by line by a human?
+
+No autonomous evolution is required. The unit does not need to decide when it is “sick.” We only need a minimal loop:
 
 ```text
 functional goal
@@ -499,7 +666,7 @@ rollback when needed
 
 If these two small things do not work, the larger theory is irrelevant.
 
-If they do, we can begin asking whether such units can compose, preserve history, and reduce global human coordination over long periods of change.
+If they do, we can begin asking whether such units can compose, inherit history, and reduce global human coordination over long periods of change.
 
 ---
 
@@ -507,7 +674,7 @@ If they do, we can begin asking whether such units can compose, preserve history
 
 These are outcomes of the exploration, not starting assumptions:
 
-- **Knowledge DRY; implementations may be WET** — business truth needs an authoritative source, while concrete implementations need not always be shared;
+- **Knowledge DRY; implementations may be WET** — business truth needs an authoritative source, while concrete implementations do not always need to be shared;
 - **Persistent state; potentially ephemeral implementation** — facts, identity, rules, and history should survive implementation replacement;
 - **Speculate before commitment; commit strictly** — allow many failures in isolation, but verify carefully before changing authoritative state;
 - **Testable outcomes; flexible processes** — the path may vary, but acceptable results must remain checkable;
@@ -519,7 +686,7 @@ See the [core thesis](理论-Theory/核心命题-Core-Thesis.en.md) and [design 
 
 ## How are we testing this?
 
-The research has three levels.
+The research has three levels rather than beginning with a grand unified theory.
 
 ### Level 1: can this software shape exist at all?
 
@@ -541,13 +708,13 @@ If most work can remain local, testable, and replaceable while humans focus on g
 
 ## Current status
 
-[Confirmed] This repository now preserves theory, proposals, experiment indexes, and the evolution of the discussion. Failed experiments and rejected ideas are intentionally retained because the corrections are part of the research result.
+[Confirmed] This repository now preserves theory, proposals, experiment indexes, and the evolution of the research. Failures, counterexamples, and rejected ideas are intentionally retained because the corrections are part of the result.
 
 [Open] We have not established that this is a generally better way to build software, and we do not need to prove that it applies to all software.
 
 The real target is narrower:
 
-> **Is there a meaningful class of software where changing the unit of production, validation, knowledge retention, and responsibility allocation repeatedly produces more accepted functionality with substantially less global human coordination and rescue work?**
+> **Is there a meaningful class of software where changing the unit of production, validation, knowledge retention, and responsibility allocation can repeatedly produce more accepted functionality with substantially less global human coordination and rescue work under comparable quality and resource constraints?**
 
 ### Continue reading
 
