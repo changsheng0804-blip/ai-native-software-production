@@ -1,262 +1,298 @@
 [Home](../README.md) · [中文](研究演进-Research-Evolution.zh-CN.md)
 
-Version: v0.2 · Updated: 2026-09-14 · Paired language revision: v0.2
+Version: v0.3 · Updated: 2026-09-14 · Paired language revision: v0.3
 
-# Research evolution: how we kept changing our minds
+# Research evolution: what forced us to keep changing our minds
 
-This document is not organized as a theory outline. It follows the observations, failures, and corrections that actually moved the project forward.
+This was not a path where we first proposed a theory and then accumulated proof.
 
-[Confirmed] The sequence comes from the original discussion record and subsequent synthesis. It is an intellectual history, not a timestamped experimental log. External evidence and project experiment status are tracked separately in [Evidence and references](../证据-Evidence/证据与参考-Evidence-and-References.en.md).
+The actual pattern was closer to this: a claim would begin to look convincing, then a real usage experience, outside example, or failed experiment would break part of it and force us to restate the question.
 
----
-
-## 1. The starting point was not “new architecture”; it was that AI programming kept feeling slightly wrong
-
-The original question was simple: **does AI programming sometimes feel a little like alchemy?**
-
-Not because the underlying science is dubious, but because two things coexist in practice:
-
-- the capability is extraordinary and generation is fast;
-- reliability, explanation fidelity, context stability, and change impact can still feel difficult to reason about.
-
-If the problem is only “the model is not smart enough,” the natural answers are a stronger model, a larger context window, and better prompting.
-
-Repeated use pushed us toward a different possibility: **some of the friction may come from the production system around the model, not only from model capability.**
-
-That became the root question of the project.
+This document records those turns.
 
 ---
 
-## 2. First correction: code and explanation are not the same evidence
+## 1. The starting point was not “a new architecture,” but the alchemy-like feel of AI programming
 
-One of the first concrete observations was that an AI-generated explanation does not always faithfully describe the implementation it just produced.
+The first question was simply:
 
-That forced us to separate two intuitions:
+> **Why can AI programming feel strangely empirical even when the capability is so strong?**
 
-> “the model knows what it wrote”
+Code generation was already fast, but problems around reliability, context, explanation, dependencies, and human review kept recurring.
 
-from
+It was easy to explain all of this as “the model is not strong enough yet” or “the prompt needs improvement.”
 
-> “the model can generate a plausible explanation of what it wrote.”
+The first deeper turn was: **maybe the problem is not only the model, but how we organize its work.**
 
-The acceptance standard changed accordingly:
-
-[Proposal] **move from trusting explanation to requiring execution evidence.**
-
-Real runs, tests, constraint checks, and independent validation became more important than a statement such as “fixed.”
-
-This later became the principle of separating generation from acceptance, but it began as a practical lesson: **do not let the same natural-language output serve as both the product and the proof that the product is correct.**
+See [Why we started](我们为什么开始-Why-We-Started.en.md).
 
 ---
 
-## 3. Second correction: we may have been stuffing too much into context
+## 2. Observation: code and explanation can both sound convincing without actually matching
 
-The obvious strategy was to give the model more: project docs, historical rules, source code, failures, and exceptions.
+This forced us to drop an implicit assumption:
 
-In practice, longer context did not always make the system more stable. Relevant information can compete with stale, irrelevant, or conflicting information.
+> “If the model can explain what it just wrote, that explanation can serve as validation.”
 
-So the question changed from:
+The revised view became:
 
-> “How much larger does the context window need to be?”
+> **The producer’s narrative and the evidence for the result must be separated.**
+
+Execution, tests, types, permissions, and data constraints matter more than a model saying it has checked its work.
+
+This later became the generation-versus-validation thread.
+
+---
+
+## 3. Observation: adding more context did not automatically solve complexity
+
+The obvious response was to feed the model more code, more history, and more rules.
+
+But larger context also created interference, contradictions, omission, and difficulty identifying which facts mattered to the current task.
+
+That forced the question to change from:
+
+> “How do we make AI remember more?”
 
 into:
 
-> **“Why should durable knowledge live inside conversation history at all?”**
+> **“Why does all of this information need to live inside one conversation?”**
 
-That opened a different direction:
-
-- durable state and knowledge remain in the environment;
-- the AI retrieves only what matters to the current task;
-- if a conversation produces new experience that should affect future behavior, that experience is written back into addressable external state.
-
-[Hypothesis] This may be closer to a maintainable long-term production model than simply extending conversational memory.
+This led toward durable environmental state and on-demand retrieval: business rules, historical exceptions, permissions, and state should become system assets rather than transient conversation memory.
 
 ---
 
-## 4. Third correction: parallel generation is cheap; strong dependency is expensive
+## 4. The electrification analogy changed the scale of the question
 
-We initially treated “many candidates cause combinatorial explosion” as a major barrier.
+If we only ask “how do we make AI write code more reliably,” we assume the software factory itself does not need to change.
 
-On closer inspection, two separate issues had been conflated.
+The historical analogy challenged that assumption:
 
-Generating many candidates in parallel is already easy. The combinatorial problem appears when every choice constrains long chains of downstream choices.
+> Early factories often replaced steam engines with electric motors while keeping the central shaft system. The large productivity gains came later, when individual machines received their own motors and the factory could be rearranged around the flow of work.
 
-So the claim changed to:
+That led to a new question:
 
-> **Parallel generation is cheap; strongly dependent composition is expensive.**
+> **Is AI programming today another case of “new power source, old factory layout”?**
 
-This pushed the research toward the boundary of a production unit. If a unit can be understood locally, executed locally, validated locally, and fail locally, stochastic generation is easier to contain.
-
-[Open] How far this localization can go is still an experimental question. Data, resources, timing, and business semantics do not disappear merely because implementation is isolated.
+From that point, the research object expanded from coding technique to production organization.
 
 ---
 
-## 5. Fourth correction: many supposed infrastructure gaps already have prototypes
+## 5. We did not immediately return to code; we first studied domains where AI already feels natural
 
-At first we treated lightweight constraints, generation gates, parallel execution, and rollback as infrastructure that might need to be invented from scratch.
+This step was compressed too aggressively in the first repository draft, but it was essential.
 
-In practice, existing tools already provide many pieces: hooks, gates, tests, sandboxes, and version control can intercept and constrain generated work.
+If generative AI feels unusually natural in images, short-form media, and interactive content but unusually awkward in large software systems, perhaps the difference is structural rather than merely a matter of model capability.
 
-That changed the research question from:
+That led to five directions:
 
-> “How do we invent all infrastructure for AI-native software?”
+1. **Versions → lineages** — generated artifacts may be better organized as branching families than one latest version;
+2. **Completion → continuous generation** — some products may have no fixed final state;
+3. **Inspection → deciding what deserves another round** — review can become resource allocation among candidate branches;
+4. **Avoiding waste → deliberate large-scale experimentation** — cheap candidates make generate-many-then-select workflows rational;
+5. **Production skill → making taste and intent explicit** — when generation is abundant, knowing what to ask for becomes scarcer.
 
-into:
-
-> **“Can existing pieces be recombined into different production units and lifecycles?”**
-
-This is why a local unit that regenerates after failure became such a natural first prototype: it does not require solving long-term autonomy, global judgment, and governance before anything useful can be tested.
-
----
-
-## 6. Fifth correction: do not begin with a universal “is this unit diseased?” function
-
-While exploring self-repair, a familiar engineering instinct appeared: define a function that decides whether a unit is broken and whether it should be abandoned.
-
-That assumption was challenged.
-
-Complex system state is rarely captured by a single threshold. Success rate, resource pressure, neighboring state, historical behavior, and external conditions may jointly determine whether repair, replacement, degradation, or shutdown is appropriate.
-
-So we temporarily set aside the idea of a perfect centralized judge and moved toward a broader question:
-
-> **Can environmental signals, hard boundaries, and feedback make recovery strategy a runtime choice rather than a fixed central verdict?**
-
-[Open] This remains a later systems-engineering problem rather than a prerequisite for the earliest experiments.
+These were not conclusions. They were tools for escaping the assumption that AI is simply a faster programmer or creator.
 
 ---
 
-## 7. Sixth correction: stop trying to prove a “new paradigm”; test two minimum possibilities
+## 6. Flipbook, the H3 AI television experiment, and gacha-style AIGC workflows revealed a common pattern
 
-The discussion had grown rapidly: self-healing, immunity, emergence, hierarchy, cybernetics.
+The examples made several properties tangible:
 
-We deliberately narrowed it back to two small experiments.
+- consumption feeds directly into the next generation step;
+- continuity can be carried by lightweight anchors rather than a full preplanned artifact;
+- the product shifts from a fixed deliverable toward an ongoing process.
 
-### A. Can a temporary software artifact complete a real function?
+More importantly, they often allow production to be decomposed into relatively independent units where one local failure does not destroy the entire chain.
 
-It does not need to live for long. It only needs to show that some functions can be satisfied by “generate now → execute → discard,” rather than by committing everything to a permanent codebase in advance.
-
-### B. Can a functional unit treat “failure → repair/regeneration → validation → rollback” as a normal lifecycle?
-
-It does not need to invent a new purpose or autonomously evolve. It only tests whether existing LLM interfaces, tests, and version control can form a self-correcting loop.
-
-These became Level 1 of the research path: **first establish that the software shape can exist; only then ask whether it is better.**
+This produced the first “discreteness + tolerance” diagnostic frame.
 
 ---
 
-## 8. Biology and local-rule experiments were useful because they brought us back to reality
+## 7. Observation: AI-friendly domains often tolerate local failure; large software often does not
 
-A series of prototypes then explored state-machine swarms, spatial fields, growth rules, Potts models, differential adhesion, and hierarchical promotion.
+This was where the electrification analogy finally connected back to software.
 
-Their value was not to prove that software should imitate biology. Their value was that each failure exposed a hidden design variable.
+Traditional software frequently contains long call chains:
 
-Reported failures included:
+```text
+A → B → C → D → E
+```
 
-- enclosed regions becoming permanently trapped;
-- target fields becoming so strong that “self-organization” collapsed into a pre-specified answer;
-- unconstrained dynamics converging to one color because that was the actual optimum;
-- missing persistent identity causing fragmented domains;
-- one-time promotion freezing higher-level units so they could no longer absorb neighboring regions.
+Each stage is expected to be dependable because downstream stages rely on its precise output.
 
-These failures forced a harder conclusion:
+Generative AI is powerful but cannot guarantee perfect intermediate output every time.
 
-> **Local rules can create structure without automatically creating the function we want.**
+That suggested a key hypothesis:
 
-[Hypothesis] Biology, fields, and emergence are therefore more useful as scaffolding for discovering design variables than as the final software architecture.
+> **Discreteness + tolerance may be the AI-era equivalent of “one motor per machine,” while long, tightly coupled dependency chains may resemble the central shaft.**
 
-This was the point where the research moved back toward real software production.
+This was later expanded to include verifiability, reversibility, failure correlation, and composition cost. But it was the first structural explanation for why AI feels smooth in some domains and awkward in others.
 
 ---
 
-## 9. Seventh correction: self-healing is only one strategy; production organization is the real subject
+## 8. That forced us to shrink the big theory back into two minimum experiments
 
-As the exploration continued, a larger pattern became clear:
+The discussion had already expanded into self-healing, immune systems, disease detection, environmental signals, and emergence.
 
-- regeneration is not the goal;
-- multiple candidates are not the goal;
-- dynamic adaptation is not the goal;
-- biological analogy is not the goal.
+We stepped back because the basic software shapes had not been established.
 
-They are mechanisms.
+So we asked two questions.
 
-The higher-level question became:
+### Q1: can temporary, on-demand generated software perform a real function?
 
-> **If AI becomes one of the primary producers, should the unit of production, knowledge retention, quality control, composition, and responsibility allocation change?**
+Even if it lives for only seconds.
 
-The most important unknowns now cluster into four areas:
+If yes, “software implementation must be a durable asset” is not a universal prerequisite.
 
-1. decomposition cost;
-2. validation cost;
-3. composition cost;
-4. knowledge continuity.
+### Q2: can a functional unit go through failure → LLM repair/regeneration → validation → rollback?
 
-These are closer to the core of the project than “can software automatically fix a bug?”
+No autonomous evolution is required. It does not need to decide when it should die.
+
+It only needs a minimum lifecycle that can be tested honestly.
+
+These questions pulled the work back from philosophy into experiments.
 
 ---
 
-## 10. Several strong claims were deliberately weakened
+## 9. The self-healing prototype showed that the loop can be assembled — and exposed a larger problem
 
-External checks and further discussion forced a number of early formulations to become more careful:
+A minimal loop using generation, real execution, testing, failure feedback, regeneration, and version rollback does not require entirely new infrastructure.
 
-| Earlier claim | Current revision | Why |
-|---|---|---|
-| Generated errors are local independent noise | Errors may be stochastic but correlated; isolation and correlation must be measured separately | Multiple candidates can share the same bias |
-| Duplicated implementation can reduce coupling to zero | It can reduce some implementation coupling, not shared data, time, resources, or semantics | The real world still contains shared constraints |
-| AI generation is almost free | Count decomposition, generation, validation, retries, runtime, and human effort together | Cheap candidates may create expensive validation |
-| Software should be discarded after use | Implementations may be ephemeral; state, knowledge, and evidence may need to persist | History must survive implementation replacement |
-| Fixed APIs should disappear | Adapters may be generated dynamically, but critical boundaries still need machine-checkable contracts | Flexibility cannot eliminate verifiability |
-| Returning metrics to normal proves correctness | Separate hard constraints from soft objectives | Some boundaries cannot be traded away for optimization |
-| Parallel simulated worlds predict the future | They only test candidate behavior under modeled conditions | Simulation is not reality |
+That established one thing:
 
-A useful habit emerged from these corrections: **whenever a slogan sounds elegant, ask under what conditions it stops being true.**
+> regeneration after failure is not purely hypothetical.
+
+But it immediately exposed harder questions:
+
+- are the tests complete enough?
+- can AI-generated implementation and AI-generated tests share the same blind spot?
+- a unit can regenerate, but can a whole system remain stable over time?
+- how should units be decomposed, composed, and supplied with historical knowledge?
+
+So “self-healing” was demoted from the research goal to one local mechanism.
 
 ---
 
-## 11. The current three-level experimental path
+## 10. Local-rule experiments pushed us toward systems thinking and biology, but the failures mattered more than the successes
 
-To avoid jumping directly from local observations to a grand conclusion, validation is now split into three levels.
+To explore how local units might organize without one central script, we built experiments using state-machine swarms, spatial fields, growth rules, Potts models, differential adhesion, and hierarchical promotion.
+
+They did not yield a ready-made architecture, but their failures exposed harder design variables:
+
+- purely local rules can create irreversible topological traps;
+- overly strong target fields turn supposed self-organization back into a pre-specified answer;
+- without conservation constraints, systems can converge to mathematically simple but functionally meaningless states;
+- without persistent identity, higher-level structures fail to become real units;
+- one-time promotion can freeze bad boundaries, so higher-level units may need continued absorption and correction.
+
+This led to another turn:
+
+> **Biology can reveal design variables, but imitating biological detail does not automatically produce correct software.**
+
+The work had to return to real software-production outcomes.
+
+---
+
+## 11. Important correction: generative errors cannot simply be treated as independent noise
+
+Early on, it was tempting to describe model errors as local, independent, unpredictable noise and conclude that discreteness and redundancy would naturally absorb them.
+
+That formulation was too strong.
+
+Multiple candidates can share:
+
+- the same model bias;
+- the same ambiguous specification;
+- the same missing boundary condition.
+
+So “generate several versions” does not automatically create reliability.
+
+This forced us to add **failure correlation** to the diagnostic framework and strengthened the case for heterogeneous generation and validation sources.
+
+---
+
+## 12. Another correction: discreteness + tolerance is not enough
+
+Low failure cost is useful only if we can tell whether a result is acceptable.
+
+If evaluation itself is unreliable, cheap generation simply produces cheap noise.
+
+The framework therefore expanded to include at least:
+
+- decomposability;
+- verifiability;
+- reversibility;
+- failure correlation;
+- composition cost.
+
+Discreteness + tolerance remains important because it was the first useful clue, but it is no longer treated as a complete theory.
+
+---
+
+## 13. Principles such as “Knowledge DRY, implementation WET” appeared only after these failures
+
+These were not invented as slogans first.
+
+Each responded to a concrete tension:
+
+- **Knowledge DRY; implementations may be WET** — reduce change coupling from shared implementation without letting business truth drift across copies;
+- **Persistent state; potentially ephemeral implementation** — implementation can regenerate, but history, permissions, rules, and identity cannot disappear with it;
+- **Speculate before commitment; commit strictly** — cheap generation permits abundant trials, but real state changes still need hard gates;
+- **Keep knowledge in the environment; let AI retrieve it as needed** — avoid accumulating facts that “only one past conversation knew”;
+- **Testable outcomes; flexible processes** — allow stochastic paths without making acceptance itself vague.
+
+They remain testable design principles, not established universal best practices.
+
+---
+
+## 14. The research object finally shifted from “self-healing software” to software-production organization
+
+The question that survived was:
+
+> **Software engineering was organized around humans writing deterministic code. If a major producer becomes an AI that is excellent at generation but stochastic and context-limited, how should software production itself be reorganized?**
+
+That leaves four central costs:
+
+1. **Decomposition cost** — does splitting work into AI-friendly units still require humans to understand the whole system?
+2. **Validation cost** — once implementation gets cheap, does acceptance become the new expensive bottleneck?
+3. **Composition cost** — can individually valid units still fail in combinations that only global reasoning can detect?
+4. **Knowledge continuity** — if implementations are replaceable, how do business meaning, state, and historical experience survive?
+
+Regeneration is only one failure-handling strategy.
+
+The real test is whether the production organization can keep most work inside AI’s effective range over time rather than merely moving complexity from coding into integration and human rescue.
+
+---
+
+## 15. Current experiment path: existence → local benefit → organizational benefit
+
+To avoid jumping from a small mechanism to a grand theory again, the work now has three levels.
 
 ### Level 1: existence
 
-Test whether the minimal form can work:
-
-- can temporary generated software complete a real task?
-- can a self-correcting unit run through a complete lifecycle?
+Can these software shapes work at all?
 
 ### Level 2: local benefit
 
-Then compare concrete mechanisms:
-
-- do more local implementations reduce cascading change impact?
-- does environment-based retrieval reduce context confusion?
-- do multiple candidates plus independent acceptance improve reliability?
-- do generated adapters actually reduce evolution cost?
+Are they actually better for clearly defined problems than conventional alternatives?
 
 ### Level 3: organizational benefit
 
-Only then test the strongest claim:
+As a real product evolves, can they reduce global human coordination, review, and rescue work?
 
-> As system scale, requirement change, and historical complexity grow, does the amount of global coordination, review, and rescue work required from humans grow more slowly?
-
-If not, the approach may still be a useful local tool. If the result repeats across a clear class of software, it may justify calling the change a new production model.
+Only repeated Level-3 success would justify serious talk of a new production paradigm.
 
 ---
 
-## 12. This repository is a record of changing claims, not a warehouse of conclusions
+## Current research discipline
 
-[Proposal] When a formal conclusion changes, preserve the path:
+[Proposal] Any important claim should preserve four things:
 
-```text
-old claim
-   ↓
-observation or experiment that broke it
-   ↓
-revised claim
-   ↓
-new scope
-   ↓
-next falsification attempt
-```
+1. **What we originally believed;**
+2. **what observation, case, or failure made us doubt it;**
+3. **the revised formulation;**
+4. **how the revised claim could be falsified next.**
 
-Results are not grouped by model identity. Useful ideas from different sources enter the same research chain.
-
-[Open] We still do not have a complete comparative experiment showing that the overall production model outperforms established software engineering. The next priority is not more abstract principles; it is completing Level 1 and Level 2 experiments one by one.
+The repository’s status labels — **Confirmed / Hypothesis / Open / Proposal** — exist to prevent a compelling analogy from quietly turning into an established fact as the story gets retold.
