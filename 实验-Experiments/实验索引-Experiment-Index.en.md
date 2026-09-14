@@ -18,6 +18,7 @@ Version: v0.1 · Updated: 2026-09-14 · Paired language revision: v0.1
 | EX-06 Differential adhesion | differential_adhesion.jsx | Initialization omission, single-color collapse, count-preserving identity exchange, ratio and cooling adjustments; multiple domains remained | Pixels lack persistent region identity; distinguish original models, simplified implementation, and physical analogy | 【不确定 / Open】Reported; awaiting reproduction |
 | EX-07 Hierarchical promotion | hierarchical_promotion.jsx | Stable regions acquire IDs; snapshot freezing leaves gaps, followed by neighbor absorption | Can freezing and identity rules introduce new traps? Compare explicit hierarchy first | 【不确定 / Open】Reported; awaiting reproduction |
 | EX-08 Longitudinal comparison | [Protocol](08-持续演进对照实验-Longitudinal-Comparison.en.md) | Not run; tests organizational benefits and the three RFCs | Select a product and freeze requirement sequences, acceptance, and budgets | 【建议 / Proposal】Planned |
+| EX-09 Document production trial field | [Experiment record](09-文档生产试验田-Document-Production-Trial-Field.en.md) | Running; measures intent and acceptance minutes per delivery | Documents only; the measurer is a party; not generalizable to software | 【建议 / Proposal】Running |
 
 ## Reproducing historical prototypes
 
