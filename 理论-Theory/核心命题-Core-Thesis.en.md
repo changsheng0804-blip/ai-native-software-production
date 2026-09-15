@@ -1,6 +1,6 @@
 [Home](../README.md) · [中文](核心命题-Core-Thesis.zh-CN.md)
 
-Version: v0.1 · Updated: 2026-09-14 · Paired language revision: v0.1
+Version: v0.2 · Updated: 2026-09-15 · Paired language revision: v0.2
 
 # Core thesis
 
@@ -15,6 +15,10 @@ Version: v0.1 · Updated: 2026-09-14 · Paired language revision: v0.1
 [Hypothesis] For software tasks amenable to decomposition, verification, and isolation, redesigning task boundaries, external knowledge, acceptance mechanisms, composition, and human–AI responsibilities may keep most work within AI's effective capabilities and reduce human coordination load during system evolution.
 
 A stronger version predicts that human coordination load grows more slowly than product complexity over a predefined range. This is not a universal law; a single success or short curve cannot establish long-term behavior.
+
+[Confirmed] The canonical counter-claim is Brooks's "No Silver Bullet": the bulk of software difficulty lies in the specification, design, and testing of the conceptual construct (the essence), and no single development in technology or management technique promises even one order-of-magnitude improvement. Full-text verification shows that his examined candidates are all tools and technologies; reorganizing production and the human–AI division of labor is not discussed. [E10](../证据-Evidence/证据与参考-Evidence-and-References.en.md#e10)
+
+[Hypothesis] H1 occupies exactly that undiscussed dimension, and the coordination load it targets — decomposition, verification, composition, and knowledge maintenance — is the bulk of what Brooks calls essence. The two form a testable opposition: if those costs do not fall under reorganization, Brooks is right; if they fall substantially, H1 holds within its stated scope.
 
 ## H2–H5: Testable subsidiary claims
 
