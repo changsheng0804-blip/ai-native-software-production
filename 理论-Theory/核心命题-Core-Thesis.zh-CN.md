@@ -25,7 +25,7 @@
 | H4 | 【推断】把候选试运行前置到隔离环境，可减少错误影响真实状态 | 模拟遗漏、过期快照或外部副作用抵消收益 |
 | H5 | 【推断】运行证据转为有版本的知识，可减少同类问题重复升级给人 | 规则不断膨胀、冲突增多，未来生成仍重复犯错 |
 
-对应：[RFC-0001](../提案-RFCs/0001-知识DRY实现WET-Knowledge-DRY-Code-WET.zh-CN.md)、[RFC-0002](../提案-RFCs/0002-状态持久实现临时-Persistent-State-Ephemeral-Implementation.zh-CN.md)、[RFC-0003](../提案-RFCs/0003-试错前置提交严格-Speculate-Freely-Commit-Strictly.zh-CN.md)。
+对应：[RFC-0001](../提案-RFCs/0001-知识DRY实现WET-Knowledge-DRY-Code-WET.zh-CN.md)、[RFC-0002](../提案-RFCs/0002-状态持久实现临时-Persistent-State-Ephemeral-Implementation.zh-CN.md)、[RFC-0003](../提案-RFCs/0003-试错前置提交严格-Speculate-Freely-Commit-Strictly.zh-CN.md)、[RFC-0004](../提案-RFCs/0004-瞬时视觉表层与意图反推-Ephemeral-Visual-Surface.zh-CN.md)。
 
 ## 如何判断价值
 

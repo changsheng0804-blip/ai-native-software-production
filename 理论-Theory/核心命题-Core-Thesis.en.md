@@ -25,7 +25,7 @@ A stronger version predicts that human coordination load grows more slowly than 
 | H4 | [Hypothesis] Isolated candidate trials before commitment reduce erroneous changes to real state | Simulation gaps, stale snapshots, or external effects erase the benefit |
 | H5 | [Hypothesis] Turning runtime evidence into versioned knowledge reduces repeated human escalations | Rules grow and conflict while later generations repeat the same mistakes |
 
-See [RFC-0001](../提案-RFCs/0001-知识DRY实现WET-Knowledge-DRY-Code-WET.en.md), [RFC-0002](../提案-RFCs/0002-状态持久实现临时-Persistent-State-Ephemeral-Implementation.en.md), and [RFC-0003](../提案-RFCs/0003-试错前置提交严格-Speculate-Freely-Commit-Strictly.en.md).
+See [RFC-0001](../提案-RFCs/0001-知识DRY实现WET-Knowledge-DRY-Code-WET.en.md), [RFC-0002](../提案-RFCs/0002-状态持久实现临时-Persistent-State-Ephemeral-Implementation.en.md), [RFC-0003](../提案-RFCs/0003-试错前置提交严格-Speculate-Freely-Commit-Strictly.en.md), and [RFC-0004](../提案-RFCs/0004-瞬时视觉表层与意图反推-Ephemeral-Visual-Surface.en.md).
 
 ## Measuring value
 
