@@ -358,7 +358,7 @@ AI 生成实现
 |---|---|
 | 为什么会走到这里 | [我们为什么开始](研究记录-Research-Notes/我们为什么开始-Why-We-Started.zh-CN.md) · [研究演进](研究记录-Research-Notes/研究演进-Research-Evolution.zh-CN.md) |
 | 当前理论 | [核心命题](理论-Theory/核心命题-Core-Thesis.zh-CN.md) · [设计原则](理论-Theory/设计原则-Design-Principles.zh-CN.md) · [生产闭环](理论-Theory/生产闭环-Production-Loop.zh-CN.md) · [接口刚性](理论-Theory/接口刚性-Interface-Rigidity.zh-CN.md) |
-| 首批提案 | [知识 DRY / 实现 WET](提案-RFCs/0001-知识DRY实现WET-Knowledge-DRY-Code-WET.zh-CN.md) · [状态持久 / 实现临时](提案-RFCs/0002-状态持久实现临时-Persistent-State-Ephemeral-Implementation.zh-CN.md) · [试错前置 / 提交严格](提案-RFCs/0003-试错前置提交严格-Speculate-Freely-Commit-Strictly.zh-CN.md) |
+| 首批提案 | [知识 DRY / 实现 WET](提案-RFCs/0001-知识DRY实现WET-Knowledge-DRY-Code-WET.zh-CN.md) · [状态持久 / 实现临时](提案-RFCs/0002-状态持久实现临时-Persistent-State-Ephemeral-Implementation.zh-CN.md) · [试错前置 / 提交严格](提案-RFCs/0003-试错前置提交严格-Speculate-Freely-Commit-Strictly.zh-CN.md) · [瞬时视觉表层](提案-RFCs/0004-瞬时视觉表层与意图反推-Ephemeral-Visual-Surface.zh-CN.md) |
 | 实验 | [实验索引](实验-Experiments/实验索引-Experiment-Index.zh-CN.md) · [持续演进对照计划](实验-Experiments/08-持续演进对照实验-Longitudinal-Comparison.zh-CN.md) · [文档生产试验田](实验-Experiments/09-文档生产试验田-Document-Production-Trial-Field.zh-CN.md) |
 | 依据与状态 | [证据与参考](证据-Evidence/证据与参考-Evidence-and-References.zh-CN.md) · [来源摘要](证据-Evidence/来源摘要-Source-Digest.zh-CN.md) |
 
@@ -722,7 +722,7 @@ The real target is narrower:
 |---|---|
 | Why this started | [Why we started](研究记录-Research-Notes/我们为什么开始-Why-We-Started.en.md) · [Research evolution](研究记录-Research-Notes/研究演进-Research-Evolution.en.md) |
 | Current theory | [Core thesis](理论-Theory/核心命题-Core-Thesis.en.md) · [Design principles](理论-Theory/设计原则-Design-Principles.en.md) · [Production loop](理论-Theory/生产闭环-Production-Loop.en.md) · [Interface rigidity](理论-Theory/接口刚性-Interface-Rigidity.en.md) |
-| Initial proposals | [Knowledge DRY / code WET](提案-RFCs/0001-知识DRY实现WET-Knowledge-DRY-Code-WET.en.md) · [Persistent state / ephemeral implementation](提案-RFCs/0002-状态持久实现临时-Persistent-State-Ephemeral-Implementation.en.md) · [Speculate before commitment](提案-RFCs/0003-试错前置提交严格-Speculate-Freely-Commit-Strictly.en.md) |
+| Initial proposals | [Knowledge DRY / code WET](提案-RFCs/0001-知识DRY实现WET-Knowledge-DRY-Code-WET.en.md) · [Persistent state / ephemeral implementation](提案-RFCs/0002-状态持久实现临时-Persistent-State-Ephemeral-Implementation.en.md) · [Speculate before commitment](提案-RFCs/0003-试错前置提交严格-Speculate-Freely-Commit-Strictly.en.md) · [Ephemeral visual surface](提案-RFCs/0004-瞬时视觉表层与意图反推-Ephemeral-Visual-Surface.en.md) |
 | Experiments | [Experiment index](实验-Experiments/实验索引-Experiment-Index.en.md) · [Longitudinal comparison protocol](实验-Experiments/08-持续演进对照实验-Longitudinal-Comparison.en.md) · [Document production trial field](实验-Experiments/09-文档生产试验田-Document-Production-Trial-Field.en.md) |
 | Evidence and status | [Evidence and references](证据-Evidence/证据与参考-Evidence-and-References.en.md) · [Source digest](证据-Evidence/来源摘要-Source-Digest.en.md) |
 
