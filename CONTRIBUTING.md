@@ -16,6 +16,10 @@
 
 【建议】不会操作合并请求时，直接发讨论说明“哪篇文章、哪句话、为什么、有什么依据”。讨论可以先用一种语言，正式纳入仓库时补齐双语。
 
+### 讨论如何进入正式文档
+
+【建议】讨论区按模板提交（反例与反驳／竞争框架／真实需求／开放问题／自由想法，模板见 [.github/DISCUSSION_TEMPLATE](.github/DISCUSSION_TEMPLATE/)）。新观点由维护者或研究 agent 定期整理进 [意见清单](研究记录-Research-Notes/意见清单-Viewpoint-Ledger.zh-CN.md)：每条记录来源、主张、针对命题、状态与所需证据。被吸收的观点双语同步并带四类认识状态；被拒绝或被反例推翻的同样记录理由、不删除历史。意见清单的存在理由是防止研究只沿一条线索自我确认——异质意见是理论的异质验证来源。
+
 ### 四类状态和证据
 
 【建议】正式断言使用【已确认 / Confirmed】【推断 / Hypothesis】【不确定 / Open】【建议 / Proposal】。定义和范围见 [证据与参考](证据-Evidence/证据与参考-Evidence-and-References.zh-CN.md)。
@@ -56,6 +60,10 @@ README.md 和 CONTRIBUTING.md 保留 GitHub 可识别的标准文件名，文件
 - Pull requests: formal document revisions explaining the change, rationale, evidence, scope, and checks.
 
 [Proposal] If pull requests are unfamiliar, post the document, sentence, concern, and evidence in a discussion. Informal discussion can start in one language; formal adoption requires both.
+
+### How discussions enter the formal documents
+
+[Proposal] Submit discussions using the templates (Counterexample / Competing Frameworks / Real Needs / Open Questions / Free Ideas; templates in [.github/DISCUSSION_TEMPLATE](.github/DISCUSSION_TEMPLATE/)). The maintainer or a research agent periodically consolidates new views into the [Viewpoint Ledger](研究记录-Research-Notes/意见清单-Viewpoint-Ledger.en.md): each entry records source, claim, targeted proposition, status, and evidence required. Absorbed views are synchronized bilingually with one of the four epistemic statuses; rejected or overturned views are also recorded with reasons, and history is not deleted. The ledger exists to keep the research from confirming itself along a single thread — heterogeneous opinions are a heterogeneous verification source for the theory.
 
 ### Status and evidence
 
